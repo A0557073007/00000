@@ -11,24 +11,24 @@
         * { font-family: 'Tajawal', sans-serif; }
         body { background-color: #070709; color: #f3f4f6; min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; }
         .gold-text { background: linear-gradient(135deg, #FFF099 0%, #F1C40F 50%, #D4AC0D 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glass-card { background: rgba(18, 18, 20, 0.9); border: 1px solid rgba(212, 172, 13, 0.3); border-radius: 16px; padding: 16px; transition: 0.3s; cursor: pointer; }
+        .glass-card { background: rgba(18, 18, 20, 0.9); border: 1px solid rgba(212, 172, 13, 0.3); border-radius: 16px; padding: 14px; transition: 0.3s; cursor: pointer; }
         .glass-card:hover { border-color: #f1c40f; transform: translateY(-2px); }
     </style>
 </head>
 <body class="p-2 sm:p-4">
-    <div class="w-full max-w-[420px] bg-[#0d0d10] border border-amber-500/30 rounded-3xl p-5 shadow-2xl flex flex-col justify-between min-h-[820px]">
+    <div class="w-full max-w-[420px] bg-[#0d0d10] border border-amber-500/30 rounded-3xl p-5 shadow-2xl flex flex-col justify-between min-h-[850px]">
         <div class="text-center pt-2">
             <div class="w-12 h-12 mx-auto mb-2 text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/30 flex items-center justify-center">
                 <i class="fa-solid fa-crown text-2xl"></i>
             </div>
             <span class="text-xs text-amber-300/80 tracking-widest">بوابة almoghani.net</span>
             <h1 class="text-3xl font-black gold-text py-1">المغني</h1>
-            <p class="text-xs text-gray-400">المنصة الشاملة للخدمات الرقمية والقرآن الكريم والأحاديث الشريفة</p>
+            <p class="text-xs text-gray-400">المنصة الشاملة للعلوم الإسلامية والخدمات الرقمية</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 my-4">
+        <div class="grid grid-cols-2 gap-3 my-3">
             <!-- القرآن الكريم -->
-            <div onclick="openQuran()" class="glass-card flex items-center justify-between cursor-pointer">
+            <div onclick="openModal('qModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">القرآن الكريم</span>
                     <span class="text-[10px] text-gray-400">114 سورة صوت وصورة</span>
@@ -36,8 +36,8 @@
                 <i class="fa-solid fa-book-quran text-amber-400 text-xl"></i>
             </div>
 
-            <!-- الأحاديث الشريفة (مضاف حديثاً) -->
-            <div onclick="openHadith()" class="glass-card flex items-center justify-between cursor-pointer">
+            <!-- الأحاديث الشريفة -->
+            <div onclick="openModal('hModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">الأحاديث الشريفة</span>
                     <span class="text-[10px] text-gray-400">مختارات نبوية صحيحة</span>
@@ -45,51 +45,76 @@
                 <i class="fa-solid fa-feather-pointed text-amber-400 text-xl"></i>
             </div>
 
-            <div onclick="order('جداول', '$15')" class="glass-card flex items-center justify-between cursor-pointer">
+            <!-- قسم $15: سيرة النبي وغزواته -->
+            <div onclick="openModal('prophetModal')" class="glass-card flex items-center justify-between col-span-2 border-amber-400/50 bg-amber-500/5">
                 <div class="text-right">
-                    <span class="text-amber-400 font-bold text-sm block">$15</span>
-                    <span class="text-[10px] text-gray-400">جداول رقمية</span>
+                    <span class="text-amber-400 font-bold text-sm block">$15 - سيرة النبي صلى الله عليه وسلم وغزواته</span>
+                    <span class="text-[10px] text-gray-300">السيرة العطرة، العهد المكي والمدني، وأبرز الغزوات</span>
                 </div>
-                <i class="fa-solid fa-table text-amber-400 text-xl"></i>
+                <i class="fa-solid fa-mosque text-amber-400 text-2xl"></i>
             </div>
-            <div onclick="order('صورة ثابتة', '$3')" class="glass-card flex items-center justify-between cursor-pointer">
+
+            <!-- قسم $3: سير الصحابة -->
+            <div onclick="openModal('sahabaModal')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$3 - سير الصحابة</span>
+                    <span class="text-[10px] text-gray-400">كل صحابي في صفحة مستقلة</span>
+                </div>
+                <i class="fa-solid fa-users text-amber-400 text-xl"></i>
+            </div>
+
+            <!-- قسم $4: أمهات المؤمنين -->
+            <div onclick="openModal('mothersModal')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$4 - أمهات المؤمنين</span>
+                    <span class="text-[10px] text-gray-400">طُهر ورِفعة أمهات المؤمنين</span>
+                </div>
+                <i class="fa-solid fa-heart text-amber-400 text-xl"></i>
+            </div>
+
+            <!-- قسم $5: أبواب الجنة -->
+            <div onclick="openModal('gatesModal')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$5 - أبواب الجنة</span>
+                    <span class="text-[10px] text-gray-400">أبواب الجنة الثمانية وصفاتها</span>
+                </div>
+                <i class="fa-solid fa-door-open text-amber-400 text-xl"></i>
+            </div>
+
+            <!-- قسم $7: ديــن ودنيا -->
+            <div onclick="openModal('deenDunyaModal')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$7 - ديــن ودنيا</span>
+                    <span class="text-[10px] text-gray-400">مواعظ تجمع بين صلاح الدين والدنيا</span>
+                </div>
+                <i class="fa-solid fa-scale-balanced text-amber-400 text-xl"></i>
+            </div>
+
+            <!-- الخدمات الإضافية الأخرى -->
+            <div onclick="order('صورة ثابتة', '$3')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$3</span>
                     <span class="text-[10px] text-gray-400">صورة ثابتة</span>
                 </div>
                 <i class="fa-solid fa-image text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('صورة ترند', '$4')" class="glass-card flex items-center justify-between cursor-pointer">
+            <div onclick="order('صورة ترند', '$4')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$4</span>
                     <span class="text-[10px] text-gray-400">صورة ترند</span>
                 </div>
                 <i class="fa-solid fa-fire text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('خلفيات روم', '$5')" class="glass-card flex items-center justify-between cursor-pointer">
-                <div class="text-right">
-                    <span class="text-amber-400 font-bold text-sm block">$5</span>
-                    <span class="text-[10px] text-gray-400">خلفيات روم</span>
-                </div>
-                <i class="fa-solid fa-mobile-screen text-amber-400 text-xl"></i>
-            </div>
-            <div onclick="order('خلفيات عامة', '$7')" class="glass-card flex items-center justify-between cursor-pointer col-span-2">
-                <div class="text-right">
-                    <span class="text-amber-400 font-bold text-sm block">$7</span>
-                    <span class="text-[10px] text-gray-400">خلفيات مخصصة عامة</span>
-                </div>
-                <i class="fa-solid fa-images text-amber-400 text-xl"></i>
-            </div>
         </div>
 
-        <div class="space-y-2">
-            <a href="https://wa.me/963954561671" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition">
-                <i class="fa-brands fa-whatsapp text-xl"></i>
+        <div class="space-y-2 mt-2">
+            <a href="https://wa.me/963954561671" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition text-sm">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
                 <span>تواصل عبر الواتساب: 963954561671+</span>
             </a>
         </div>
 
-        <footer class="text-center text-[10px] text-gray-500 pt-2">
+        <footer class="text-center text-[10px] text-gray-500 pt-1">
             جميع الحقوق محفوظة © Almoghani.net 2026
         </footer>
     </div>
@@ -98,11 +123,14 @@
     <div id="qModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
-                <h3 class="text-amber-400 font-bold">القرآن الكريم (114 سورة)</h3>
-                <button onclick="closeQuran()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">القرآن الكريم</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="text-center mb-3">
-                <h4 id="curSurah" class="text-amber-300 font-bold text-lg">سورة الفاتحة</h4>
+                <h4 id="curSurah" class="text-amber-300 font-bold text-base">سورة الفاتحة</h4>
                 <audio id="qAudio" controls class="w-full mt-2 h-9">
                     <source src="https://server8.mp3quran.net/afs/001.mp3" type="audio/mpeg">
                 </audio>
@@ -115,8 +143,11 @@
     <div id="hModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
-                <h3 class="text-amber-400 font-bold">الأحاديث النبوية الشريفة</h3>
-                <button onclick="closeHadith()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">الأحاديث النبوية</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="mb-3">
                 <input type="text" id="hadithSearch" onkeyup="filterHadiths()" placeholder="ابحث في الأحاديث..." class="w-full bg-black/60 border border-amber-500/30 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-amber-400 text-right">
@@ -125,8 +156,151 @@
         </div>
     </div>
 
+    <!-- نافذة قسم $15: سيرة النبي وغزواته -->
+    <div id="prophetModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">سيرة النبي ﷺ وغزواته</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="overflow-y-auto space-y-3 flex-1 text-right pr-1 text-xs text-gray-300 leading-relaxed">
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">مولده ونشأته ﷺ</h4>
+                    <p>ولد النبي محمد صلى الله عليه وسلم في مكة عام الفيل (12 ربيع الأول)، توفي والده عبد الله قبل مولده، وتوفيت أمه آمنة وهو صغير، فكفله جده عبد المطلب ثم عمه أبو طالب.</p>
+                </div>
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">البعثة النبوية والعهد المكي</h4>
+                    <p>نزول الوحي عليه وعمره أربعون سنة في غار حراء بآيات "اقْرَأْ بِاسْمِ رَبِّكَ"، وبقي يدعو للإسلام سراً ثم جهراً في مكة ١٣ عاماً، لاقى فيها المسلمون أشد أنواع الأذى والصبر.</p>
+                </div>
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">الهجرة النبوية والعهد المدني</h4>
+                    <p>هاجر النبي صلى الله عليه وسلم إلى المدينة المنورة (يثرب) وأسس الدولة الإسلامية، وآخى بين المهاجرين والأنصار، وشرعت الأحكام وبدأت مرحلة الدفاع عن الدين.</p>
+                </div>
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">أبرز الغزوات الإسلامية</h4>
+                    <ul class="list-disc pr-4 space-y-1">
+                        <li><b>غزوة بدر الكبرى (2 هـ):</b> النصر العظيم للمسلمين رغم قلة عددهم.</li>
+                        <li><b>غزوة أحد (3 هـ):</b> ابتلاء واختبار لصبر المؤمنين.</li>
+                        <li><b>غزوة الخندق (الأحزاب - 5 هـ):</b> حفر الخندق وحماية المدينة المنورة.</li>
+                        <li><b>صلح الحديبة وفتح مكة (8 هـ):</b> دخول الناس في دين الله أفواجاً وتطهير الكعبة.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قسم $3: سير الصحابة (صفحات متعددة للصحابة) -->
+    <div id="sahabaModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">سير الصحابة الكرام</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <!-- قائمة الصحابة -->
+            <div id="sahabaIndex" class="overflow-y-auto space-y-2 flex-1 text-right pr-1"></div>
+            <!-- صفحة تفاصيل الصحابي الفردية -->
+            <div id="sahabaDetail" class="hidden overflow-y-auto space-y-3 flex-1 text-right pr-1">
+                <button onclick="backToSahabaList()" class="text-xs text-amber-400 hover:underline mb-2 flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-right"></i> العودة لقائمة الصحابة
+                </button>
+                <div id="sahabaContentBox" class="p-3 bg-black/40 border border-amber-500/20 rounded-xl text-xs text-gray-300 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قسم $4: أمهات المؤمنين -->
+    <div id="mothersModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">امهات المؤمنين رضي الله عنهن</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="overflow-y-auto space-y-2.5 flex-1 text-right pr-1 text-xs text-gray-300">
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">خديجة بنت خويلد رضي الله عنها</h4>
+                    <p class="mt-1">أول زوجات النبي ﷺ، وزير صدق، ساندته بمالها ونفسها وبشرها النبي بيت في الجنة من قصب.</p>
+                </div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">عائشة بنت أبي بكر الصديق رضي الله عنها</h4>
+                    <p class="mt-1">أحب أزواج النبي ﷺ إليه، عالمة الأمة ومحدثتها، برأها الله تعالى في سورة النور.</p>
+                </div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">حفصة بنت عمر بن الخطاب رضي الله عنها</h4>
+                    <p class="mt-1">صوامة قوامة، حفظت المصحف الشريف الذي جُمع في عهد أبي بكر وعمر رضي الله عنهما.</p>
+                </div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">أم سلمة هند بنت أبي أمية رضي الله عنها</h4>
+                    <p class="mt-1">ذات رأي سديد وحكمة بالغة، وكان لها دور عظيم في صلح الحديبية.</p>
+                </div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">زينب بنت جحش رضي الله عنها</h4>
+                    <p class="mt-1">عُرفت بكثرة الصدقة والعمل الصالح لطرد المساكين، ونزل في زواجها آيات من القرآن.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قسم $5: أبواب الجنة -->
+    <div id="gatesModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">أبواب الجنة الثمانية</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="overflow-y-auto space-y-2.5 flex-1 text-right pr-1 text-xs text-gray-300">
+                <p class="text-amber-300 font-semibold mb-2">للجنة ثمانية أبواب يدخل منها المؤمنون حسب أعمالهم الصالحة:</p>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">1. باب الصلاة:</b> يُدخل منه أهل المحافظة على الصلاة.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">2. باب الجهاد:</b> يُدخل منه المجاهدون في سبيل الله.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">3. باب الصيام (الريان):</b> لا يدخل منه أحد غير الصائمين.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">4. باب الصدقة:</b> يُدخل منه أهل البذل والإنفاق والصدقات.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">5. باب التوبة:</b> لمن تاب إلى الله نصوحاً.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">6. باب الكاظمين الغيظ والعافين عن الناس.</b></div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">7. باب الأيمن:</b> باب شفاعة ودخول بلا حساب.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">8. باب الذكر والعلم.</b></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قسم $7: ديــن ودنيا -->
+    <div id="deenDunyaModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </button>
+                <h3 class="text-amber-400 font-bold text-sm">ديــن ودنيا</h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="overflow-y-auto space-y-3 flex-1 text-right pr-1 text-xs text-gray-300 leading-relaxed">
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">المعادلة النبوية الصحيحة</h4>
+                    <p>قال تعالى: <span class="text-amber-400">"وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا"</span>. الإسلام لا يطلب منا رهبانية تترك الدنيا، بل إعمار الدنيا بطاعة الله.</p>
+                </div>
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">العمل عبادة</h4>
+                    <p>السعي على الرزق، إتقان العمل، وبر الوالدين، وصلة الرحم كلها أعمال دنيوية تنقلب بنيّة الصدق إلى عبادات عظيمة تثقل الميزان يوم القيامة.</p>
+                </div>
+                <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">التوازن في الحياة</h4>
+                    <p>أعط كل ذي حق حقه؛ لربك عليك حق، ولنفسك عليك حق، ولأهلك عليك حق، فاجعل بوصلتك دائماً متجهة نحو رضا الله في كل حركة وسكون.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // بيانات القرآن
         const surahs = [
             {n: 1, name: "الفاتحة", f: "001"}, {n: 2, name: "البقرة", f: "002"}, {n: 3, name: "آل عمران", f: "003"},
             {n: 4, name: "النساء", f: "004"}, {n: 5, name: "المائدة", f: "005"}, {n: 6, name: "الأنعام", f: "006"},
@@ -168,49 +342,58 @@
             {n: 112, name: "الإخلاص", f: "112"}, {n: 113, name: "الفلق", f: "113"}, {n: 114, name: "الناس", f: "114"}
         ];
 
-        // بيانات الأحاديث الشريفة
         const hadiths = [
-            {t: "إنما الأعمال بالنيات", c: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله، فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها، فهجرته إلى ما هاجر إليه.", r: "رواه البخاري ومسلم"},
-            {t: "الدين النصيحة", c: "الدين النصيحة. قلنا: لمن يا رسول الله؟ قال: لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم.", r: "رواه مسلم"},
-            {t: "من سلك طريقاً يبتغي فيه علماً", c: "من سلك طريقاً يبتغي فيه علماً، سهل الله له طريقاً إلى الجنة، وإن الملائكة لتوضع أجنحتها رضاً لطالب العلم، وإن العالم ليستغفر له من في السماوات ومن في الأرض.", r: "رواه أبو داود الترمذي"},
-            {t: "لا يؤمن أحدكم حتى يحب لأخيه", c: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.", r: "رواه البخاري ومسلم"},
-            {t: "الكلمة الطيِّبة صدقة", c: "وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَبِكُلِّ خُطْوَةٍ تَمْشِيهَا إِلَى الصَّلَاةِ صَدَقَةٌ، وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُ عَلَيْهَا أَوْ تَرْفَعُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ.", r: "رواه البخاري ومسلم"},
-            {t: "خيركم من تعلم القرآن وعلمه", c: "خيركم من تعلم القرآن وعلمه.", r: "رواه البخاري"},
-            {t: "المسلم من سلم المسلمون من لسانه ويده", c: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه.", r: "رواه البخاري ومسلم"},
-            {t: "من كان يؤمن بالله واليوم الآخر", c: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه.", r: "رواه البخاري ومسلم"},
-            {t: "اتق الله حيثما كنت", c: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن.", r: "رواه الترمذي وقال: حديث حسن"},
-            {t: "أقربكم مني مجلساً يوم القيامة", c: "إن من أحبكم إلي وأقربكم مني مجلساً يوم القيامة أحاسنكم أخلاقاً.", r: "رواه الترمذي"}
+            {t: "إنما الأعمال بالنيات", c: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى...", r: "رواه البخاري ومسلم"},
+            {t: "الدين النصيحة", c: "الدين النصيحة. قلنا: لمن يا رسول الله؟ قال: لله ولكتابه ولرسوله...", r: "رواه مسلم"},
+            {t: "من سلك طريقاً يبتغي فيه علماً", c: "سهل الله له طريقاً إلى الجنة...", r: "رواه أبو داود والترمذي"},
+            {t: "لا يؤمن أحدكم حتى يحب لأخيه", c: "ما يحب لنفسه.", r: "رواه البخاري ومسلم"}
         ];
 
-        function openQuran() {
-            document.getElementById('qModal').classList.remove('hidden');
-            const list = document.getElementById('surahsList');
-            if(list.children.length === 0) {
-                surahs.forEach(s => {
-                    const div = document.createElement('div');
-                    div.className = "p-2.5 bg-black/40 hover:bg-amber-500/10 border border-gray-800 rounded-xl flex justify-between items-center cursor-pointer";
-                    div.innerHTML = `<span class="text-sm font-bold text-gray-200">سورة ${s.name}</span><span class="text-xs text-amber-400">${s.n}</span>`;
-                    div.onclick = () => {
-                        document.getElementById('curSurah').innerText = `سورة ${s.name}`;
-                        const audio = document.getElementById('qAudio');
-                        audio.src = `https://server8.mp3quran.net/afs/${s.f}.mp3`;
-                        audio.play();
-                    };
-                    list.appendChild(div);
-                });
+        // قائمة الصحابة (لكل صحابي صفحة مستقلة داخل نفس النافذة)
+        const sahabaList = [
+            {name: "أبو بكر الصديق رضي الله عنه", info: "أول الخلفاء الراشدين، رفيق النبي ﷺ في الهجرة، وثاني اثني في الغار، وأول من أسلم من الرجال الأحرار."},
+            {name: "عمر بن الخطاب رضي الله عنه", info: "أمير المؤمنين الفاروق، ثاني الخلفاء الراشدين، أعز الله به الإسلام، وعُعدت فتوحاته الكبرى علامة فارقة في التاريخ."},
+            {name: "عثمان بن عفان رضي الله عنه", info: "ذو النورين، ثالث الخلفاء الراشدين، زوج رقية ثم أم كلثوم بنتي النبي ﷺ، وجهّز جيش العسرة وجمع القرآن."},
+            {name: "علي بن أبي طالب رضي الله عنه", info: "ابن عم النبي ﷺ وزوج فاطمة الزهراء، رابع الخلفاء الراشدين، وباب مدينة العلم وشجاع الفرسان."},
+            {name: "الزبير بن العوام رضي الله عنه", info: "حواري رسول الله ﷺ، وأول من سل سيفاً في سبيل الله، أحد العشرة المبشرين بالجنة."},
+            {name: "طلحة بن عبيد الله رضي الله عنه", info: "طلحة الخير، وقاه النبي ﷺ بيده يوم أحد حتى شلت يده، من العشرة المبشرين بالجنة."},
+            {name: "عبد الرحمن بن عوف رضي الله عنه", info: "من تجار الصحابة الأجلاء، أنفق أموالاً طائلة في سبيل الله وبُشر بالجنة."},
+            {name: "سعد بن أبي وقاص رضي الله عنه", info: "خال النبي ﷺ وأول من رمى بسهم في سبيل الله، وقائد معركة القادسية الفاصلة."},
+            {name: "سعيد بن زيد رضي الله عنه", info: "من السابقين الأولين إلى الإسلام، وزوج فاطمة بنت الخطاب، ومبشر بالجنة."},
+            {name: "أبو عبيدة بن الجراح رضي الله عنه", info: "أمين هذه الأمة، وقائد الجيوش الإسلامية في الشام، ومن العشرة المبشرين بالجنة."}
+        ];
+
+        function openModal(modalId) {
+            closeAllModals();
+            document.getElementById(modalId).classList.remove('hidden');
+
+            if(modalId === 'qModal') {
+                const list = document.getElementById('surahsList');
+                if(list.children.length === 0) {
+                    surahs.forEach(s => {
+                        const div = document.createElement('div');
+                        div.className = "p-2.5 bg-black/40 hover:bg-amber-500/10 border border-gray-800 rounded-xl flex justify-between items-center cursor-pointer";
+                        div.innerHTML = `<span class="text-sm font-bold text-gray-200">سورة ${s.name}</span><span class="text-xs text-amber-400">${s.n}</span>`;
+                        div.onclick = () => {
+                            document.getElementById('curSurah').innerText = `سورة ${s.name}`;
+                            const audio = document.getElementById('qAudio');
+                            audio.src = `https://server8.mp3quran.net/afs/${s.f}.mp3`;
+                            audio.play();
+                        };
+                        list.appendChild(div);
+                    });
+                }
+            } else if(modalId === 'hModal') {
+                renderHadiths(hadiths);
+            } else if(modalId === 'sahabaModal') {
+                renderSahabaIndex();
             }
         }
-        function closeQuran() {
-            document.getElementById('qModal').classList.add('hidden');
-            document.getElementById('qAudio').pause();
-        }
 
-        function openHadith() {
-            document.getElementById('hModal').classList.remove('hidden');
-            renderHadiths(hadiths);
-        }
-        function closeHadith() {
-            document.getElementById('hModal').classList.add('hidden');
+        function closeAllModals() {
+            document.querySelectorAll('.fixed').forEach(m => m.classList.add('hidden'));
+            const audio = document.getElementById('qAudio');
+            if(audio) audio.pause();
         }
 
         function renderHadiths(data) {
@@ -228,6 +411,44 @@
             const query = document.getElementById('hadithSearch').value.toLowerCase();
             const filtered = hadiths.filter(h => h.t.toLowerCase().includes(query) || h.c.toLowerCase().includes(query));
             renderHadiths(filtered);
+        }
+
+        function renderSahabaIndex() {
+            const indexDiv = document.getElementById('sahabaIndex');
+            const detailDiv = document.getElementById('sahabaDetail');
+            indexDiv.classList.remove('hidden');
+            detailDiv.classList.add('hidden');
+            indexDiv.innerHTML = '';
+            
+            sahabaList.forEach((s, idx) => {
+                const div = document.createElement('div');
+                div.className = "p-3 bg-black/40 hover:bg-amber-500/10 border border-amber-500/20 rounded-xl flex justify-between items-center cursor-pointer transition";
+                div.innerHTML = `<span class="text-sm font-bold text-amber-300">${s.name}</span><span class="text-xs text-gray-400 flex items-center gap-1">عرض الصفحة <i class="fa-solid fa-chevron-left"></i></span>`;
+                div.onclick = () => showSahabaPage(idx);
+                indexDiv.appendChild(div);
+            });
+        }
+
+        function showSahabaPage(index) {
+            const indexDiv = document.getElementById('sahabaIndex');
+            const detailDiv = document.getElementById('sahabaDetail');
+            const contentBox = document.getElementById('sahabaContentBox');
+            
+            indexDiv.classList.add('hidden');
+            detailDiv.classList.remove('hidden');
+            
+            const sahabi = sahabaList[index];
+            contentBox.innerHTML = `
+                <h4 class="text-amber-400 font-black text-base mb-2 pb-2 border-b border-amber-500/30">${sahabi.name}</h4>
+                <p class="text-sm leading-loose">${sahabi.info}</p>
+                <div class="mt-4 pt-2 border-t border-gray-800 text-[11px] text-amber-300/80">
+                    <i class="fa-solid fa-star"></i> صفحة خاصة ضمن سير الصحابة الكرام - Almoghani.net
+                </div>
+            `;
+        }
+
+        function backToSahabaList() {
+            renderSahabaIndex();
         }
 
         function order(service, price) {
