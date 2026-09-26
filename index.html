@@ -6,7 +6,7 @@
     <title>المغني - Almoghani.net</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/FontAwesome/6.4.0/css/all.min.css">
     <style>
         * { font-family: 'Tajawal', sans-serif; }
         body { background-color: #070709; color: #f3f4f6; min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; }
@@ -17,64 +17,71 @@
 </head>
 <body class="p-2 sm:p-4">
     <div class="w-full max-w-[420px] bg-[#0d0d10] border border-amber-500/30 rounded-3xl p-5 shadow-2xl flex flex-col justify-between min-h-[820px]">
-        
-        <!-- Header -->
         <div class="text-center pt-2">
             <div class="w-12 h-12 mx-auto mb-2 text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/30 flex items-center justify-center">
                 <i class="fa-solid fa-crown text-2xl"></i>
             </div>
             <span class="text-xs text-amber-300/80 tracking-widest">بوابة almoghani.net</span>
             <h1 class="text-3xl font-black gold-text py-1">المغني</h1>
-            <p class="text-xs text-gray-400">المنصة الشاملة للخدمات الرقمية والقرآن الكريم</p>
+            <p class="text-xs text-gray-400">المنصة الشاملة للخدمات الرقمية والقرآن الكريم والأحاديث الشريفة</p>
         </div>
 
-        <!-- Services Grid -->
         <div class="grid grid-cols-2 gap-3 my-4">
-            <div onclick="openQuran()" class="glass-card flex items-center justify-between">
+            <!-- القرآن الكريم -->
+            <div onclick="openQuran()" class="glass-card flex items-center justify-between cursor-pointer">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">القرآن الكريم</span>
                     <span class="text-[10px] text-gray-400">114 سورة صوت وصورة</span>
                 </div>
                 <i class="fa-solid fa-book-quran text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('جداول', '$15')" class="glass-card flex items-center justify-between">
+
+            <!-- الأحاديث الشريفة (مضاف حديثاً) -->
+            <div onclick="openHadith()" class="glass-card flex items-center justify-between cursor-pointer">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">الأحاديث الشريفة</span>
+                    <span class="text-[10px] text-gray-400">مختارات نبوية صحيحة</span>
+                </div>
+                <i class="fa-solid fa-feather-pointed text-amber-400 text-xl"></i>
+            </div>
+
+            <div onclick="order('جداول', '$15')" class="glass-card flex items-center justify-between cursor-pointer">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$15</span>
                     <span class="text-[10px] text-gray-400">جداول رقمية</span>
                 </div>
                 <i class="fa-solid fa-table text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('صورة ثابتة', '$3')" class="glass-card flex items-center justify-between">
+            <div onclick="order('صورة ثابتة', '$3')" class="glass-card flex items-center justify-between cursor-pointer">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$3</span>
                     <span class="text-[10px] text-gray-400">صورة ثابتة</span>
                 </div>
                 <i class="fa-solid fa-image text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('صورة ترند', '$4')" class="glass-card flex items-center justify-between">
+            <div onclick="order('صورة ترند', '$4')" class="glass-card flex items-center justify-between cursor-pointer">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$4</span>
                     <span class="text-[10px] text-gray-400">صورة ترند</span>
                 </div>
                 <i class="fa-solid fa-fire text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('خلفيات روم', '$5')" class="glass-card flex items-center justify-between">
+            <div onclick="order('خلفيات روم', '$5')" class="glass-card flex items-center justify-between cursor-pointer">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$5</span>
                     <span class="text-[10px] text-gray-400">خلفيات روم</span>
                 </div>
                 <i class="fa-solid fa-mobile-screen text-amber-400 text-xl"></i>
             </div>
-            <div onclick="order('خلفيات عامة', '$7')" class="glass-card flex items-center justify-between">
+            <div onclick="order('خلفيات عامة', '$7')" class="glass-card flex items-center justify-between cursor-pointer col-span-2">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">$7</span>
-                    <span class="text-[10px] text-gray-400">خلفيات مخصصة</span>
+                    <span class="text-[10px] text-gray-400">خلفيات مخصصة عامة</span>
                 </div>
                 <i class="fa-solid fa-images text-amber-400 text-xl"></i>
             </div>
         </div>
 
-        <!-- WhatsApp Direct -->
         <div class="space-y-2">
             <a href="https://wa.me/963954561671" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition">
                 <i class="fa-brands fa-whatsapp text-xl"></i>
@@ -87,12 +94,12 @@
         </footer>
     </div>
 
-    <!-- Quran Modal -->
+    <!-- نافذة القرآن الكريم -->
     <div id="qModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
                 <h3 class="text-amber-400 font-bold">القرآن الكريم (114 سورة)</h3>
-                <button onclick="closeQuran()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeQuran()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="text-center mb-3">
                 <h4 id="curSurah" class="text-amber-300 font-bold text-lg">سورة الفاتحة</h4>
@@ -104,7 +111,22 @@
         </div>
     </div>
 
+    <!-- نافذة الأحاديث الشريفة -->
+    <div id="hModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <h3 class="text-amber-400 font-bold">الأحاديث النبوية الشريفة</h3>
+                <button onclick="closeHadith()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="mb-3">
+                <input type="text" id="hadithSearch" onkeyup="filterHadiths()" placeholder="ابحث في الأحاديث..." class="w-full bg-black/60 border border-amber-500/30 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-amber-400 text-right">
+            </div>
+            <div id="hadithsList" class="overflow-y-auto space-y-3 flex-1 text-right pr-1"></div>
+        </div>
+    </div>
+
     <script>
+        // بيانات القرآن
         const surahs = [
             {n: 1, name: "الفاتحة", f: "001"}, {n: 2, name: "البقرة", f: "002"}, {n: 3, name: "آل عمران", f: "003"},
             {n: 4, name: "النساء", f: "004"}, {n: 5, name: "المائدة", f: "005"}, {n: 6, name: "الأنعام", f: "006"},
@@ -124,7 +146,7 @@
             {n: 46, name: "الأحقاف", f: "046"}, {n: 47, name: "محمد", f: "047"}, {n: 48, name: "الفتح", f: "048"},
             {n: 49, name: "الحجرات", f: "049"}, {n: 50, name: "ق", f: "050"}, {n: 51, name: "الذاريات", f: "051"},
             {n: 52, name: "الطور", f: "052"}, {n: 53, name: "النجم", f: "053"}, {n: 54, name: "القمر", f: "054"},
-            {n: 55, name: "الرحمن", f: "055"}, {n: 56, name: "الواقعة", f: "056"}, {n: 57, name: "الحديد", f: "057"},
+            {n: 55, name: "الرحمن", f: "055"}, {n: 56, name: "واقعة", f: "056"}, {n: 57, name: "الحديد", f: "057"},
             {n: 58, name: "المجادلة", f: "058"}, {n: 59, name: "الحشر", f: "059"}, {n: 60, name: "الممتحنة", f: "060"},
             {n: 61, name: "الصف", f: "061"}, {n: 62, name: "الجمعة", f: "062"}, {n: 63, name: "المنافقون", f: "063"},
             {n: 64, name: "التغابن", f: "064"}, {n: 65, name: "الطلاق", f: "065"}, {n: 66, name: "التحريم", f: "066"},
@@ -146,14 +168,28 @@
             {n: 112, name: "الإخلاص", f: "112"}, {n: 113, name: "الفلق", f: "113"}, {n: 114, name: "الناس", f: "114"}
         ];
 
+        // بيانات الأحاديث الشريفة
+        const hadiths = [
+            {t: "إنما الأعمال بالنيات", c: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله، فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها، فهجرته إلى ما هاجر إليه.", r: "رواه البخاري ومسلم"},
+            {t: "الدين النصيحة", c: "الدين النصيحة. قلنا: لمن يا رسول الله؟ قال: لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم.", r: "رواه مسلم"},
+            {t: "من سلك طريقاً يبتغي فيه علماً", c: "من سلك طريقاً يبتغي فيه علماً، سهل الله له طريقاً إلى الجنة، وإن الملائكة لتوضع أجنحتها رضاً لطالب العلم، وإن العالم ليستغفر له من في السماوات ومن في الأرض.", r: "رواه أبو داود الترمذي"},
+            {t: "لا يؤمن أحدكم حتى يحب لأخيه", c: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.", r: "رواه البخاري ومسلم"},
+            {t: "الكلمة الطيِّبة صدقة", c: "وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَبِكُلِّ خُطْوَةٍ تَمْشِيهَا إِلَى الصَّلَاةِ صَدَقَةٌ، وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُ عَلَيْهَا أَوْ تَرْفَعُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ.", r: "رواه البخاري ومسلم"},
+            {t: "خيركم من تعلم القرآن وعلمه", c: "خيركم من تعلم القرآن وعلمه.", r: "رواه البخاري"},
+            {t: "المسلم من سلم المسلمون من لسانه ويده", c: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه.", r: "رواه البخاري ومسلم"},
+            {t: "من كان يؤمن بالله واليوم الآخر", c: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه.", r: "رواه البخاري ومسلم"},
+            {t: "اتق الله حيثما كنت", c: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن.", r: "رواه الترمذي وقال: حديث حسن"},
+            {t: "أقربكم مني مجلساً يوم القيامة", c: "إن من أحبكم إلي وأقربكم مني مجلساً يوم القيامة أحاسنكم أخلاقاً.", r: "رواه الترمذي"}
+        ];
+
         function openQuran() {
             document.getElementById('qModal').classList.remove('hidden');
             const list = document.getElementById('surahsList');
             if(list.children.length === 0) {
                 surahs.forEach(s => {
                     const div = document.createElement('div');
-                    div.className = "p-2 bg-black/40 hover:bg-amber-500/10 border border-gray-800 rounded-lg flex justify-between items-center cursor-pointer";
-                    div.innerHTML = `<span class="text-sm font-bold">سورة ${s.name}</span><span class="text-xs text-amber-400">${s.n}</span>`;
+                    div.className = "p-2.5 bg-black/40 hover:bg-amber-500/10 border border-gray-800 rounded-xl flex justify-between items-center cursor-pointer";
+                    div.innerHTML = `<span class="text-sm font-bold text-gray-200">سورة ${s.name}</span><span class="text-xs text-amber-400">${s.n}</span>`;
                     div.onclick = () => {
                         document.getElementById('curSurah').innerText = `سورة ${s.name}`;
                         const audio = document.getElementById('qAudio');
@@ -168,6 +204,32 @@
             document.getElementById('qModal').classList.add('hidden');
             document.getElementById('qAudio').pause();
         }
+
+        function openHadith() {
+            document.getElementById('hModal').classList.remove('hidden');
+            renderHadiths(hadiths);
+        }
+        function closeHadith() {
+            document.getElementById('hModal').classList.add('hidden');
+        }
+
+        function renderHadiths(data) {
+            const list = document.getElementById('hadithsList');
+            list.innerHTML = '';
+            data.forEach(h => {
+                const div = document.createElement('div');
+                div.className = "p-3 bg-black/40 border border-amber-500/20 rounded-xl";
+                div.innerHTML = `<h4 class="text-amber-300 font-bold text-sm mb-1">${h.t}</h4><p class="text-xs text-gray-300 leading-relaxed mb-2">"${h.c}"</p><span class="text-[10px] text-amber-400/80 block">${h.r}</span>`;
+                list.appendChild(div);
+            });
+        }
+
+        function filterHadiths() {
+            const query = document.getElementById('hadithSearch').value.toLowerCase();
+            const filtered = hadiths.filter(h => h.t.toLowerCase().includes(query) || h.c.toLowerCase().includes(query));
+            renderHadiths(filtered);
+        }
+
         function order(service, price) {
             window.open(`https://wa.me/963954561671?text=${encodeURIComponent('مرحباً، أود طلب خدمة: ' + service + ' بسعر ' + price)}`, '_blank');
         }
