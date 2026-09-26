@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المغني - Almoghani.net</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { font-family: 'Tajawal', sans-serif; }
+        body { background-color: #070709; color: #f3f4f6; min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; }
+        .gold-text { background: linear-gradient(135deg, #FFF099 0%, #F1C40F 50%, #D4AC0D 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: rgba(18, 18, 20, 0.9); border: 1px solid rgba(212, 172, 13, 0.3); border-radius: 16px; padding: 16px; transition: 0.3s; cursor: pointer; }
+        .glass-card:hover { border-color: #f1c40f; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="p-2 sm:p-4">
+    <div class="w-full max-w-[420px] bg-[#0d0d10] border border-amber-500/30 rounded-3xl p-5 shadow-2xl flex flex-col justify-between min-h-[820px]">
+        
+        <!-- Header -->
+        <div class="text-center pt-2">
+            <div class="w-12 h-12 mx-auto mb-2 text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-crown text-2xl"></i>
+            </div>
+            <span class="text-xs text-amber-300/80 tracking-widest">بوابة almoghani.net</span>
+            <h1 class="text-3xl font-black gold-text py-1">المغني</h1>
+            <p class="text-xs text-gray-400">المنصة الشاملة للخدمات الرقمية والقرآن الكريم</p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-2 gap-3 my-4">
+            <div onclick="openQuran()" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">القرآن الكريم</span>
+                    <span class="text-[10px] text-gray-400">114 سورة صوت وصورة</span>
+                </div>
+                <i class="fa-solid fa-book-quran text-amber-400 text-xl"></i>
+            </div>
+            <div onclick="order('جداول', '$15')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$15</span>
+                    <span class="text-[10px] text-gray-400">جداول رقمية</span>
+                </div>
+                <i class="fa-solid fa-table text-amber-400 text-xl"></i>
+            </div>
+            <div onclick="order('صورة ثابتة', '$3')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$3</span>
+                    <span class="text-[10px] text-gray-400">صورة ثابتة</span>
+                </div>
+                <i class="fa-solid fa-image text-amber-400 text-xl"></i>
+            </div>
+            <div onclick="order('صورة ترند', '$4')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$4</span>
+                    <span class="text-[10px] text-gray-400">صورة ترند</span>
+                </div>
+                <i class="fa-solid fa-fire text-amber-400 text-xl"></i>
+            </div>
+            <div onclick="order('خلفيات روم', '$5')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$5</span>
+                    <span class="text-[10px] text-gray-400">خلفيات روم</span>
+                </div>
+                <i class="fa-solid fa-mobile-screen text-amber-400 text-xl"></i>
+            </div>
+            <div onclick="order('خلفيات عامة', '$7')" class="glass-card flex items-center justify-between">
+                <div class="text-right">
+                    <span class="text-amber-400 font-bold text-sm block">$7</span>
+                    <span class="text-[10px] text-gray-400">خلفيات مخصصة</span>
+                </div>
+                <i class="fa-solid fa-images text-amber-400 text-xl"></i>
+            </div>
+        </div>
+
+        <!-- WhatsApp Direct -->
+        <div class="space-y-2">
+            <a href="https://wa.me/963954561671" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span>تواصل عبر الواتساب: 963954561671+</span>
+            </a>
+        </div>
+
+        <footer class="text-center text-[10px] text-gray-500 pt-2">
+            جميع الحقوق محفوظة © Almoghani.net 2026
+        </footer>
+    </div>
+
+    <!-- Quran Modal -->
+    <div id="qModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+        <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
+                <h3 class="text-amber-400 font-bold">القرآن الكريم (114 سورة)</h3>
+                <button onclick="closeQuran()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="text-center mb-3">
+                <h4 id="curSurah" class="text-amber-300 font-bold text-lg">سورة الفاتحة</h4>
+                <audio id="qAudio" controls class="w-full mt-2 h-9">
+                    <source src="https://server8.mp3quran.net/afs/001.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            <div id="surahsList" class="overflow-y-auto space-y-2 flex-1 text-right pr-1"></div>
+        </div>
+    </div>
+
+    <script>
+        const surahs = [
+            {n: 1, name: "الفاتحة", f: "001"}, {n: 2, name: "البقرة", f: "002"}, {n: 3, name: "آل عمران", f: "003"},
+            {n: 4, name: "النساء", f: "004"}, {n: 5, name: "المائدة", f: "005"}, {n: 6, name: "الأنعام", f: "006"},
+            {n: 7, name: "الأعراف", f: "007"}, {n: 8, name: "الأنفال", f: "008"}, {n: 9, name: "التوبة", f: "009"},
+            {n: 10, name: "يونس", f: "010"}, {n: 11, name: "هود", f: "011"}, {n: 12, name: "يوسف", f: "012"},
+            {n: 13, name: "الرعد", f: "013"}, {n: 14, name: "إبراهيم", f: "014"}, {n: 15, name: "الحجر", f: "015"},
+            {n: 16, name: "النحل", f: "016"}, {n: 17, name: "الإسراء", f: "017"}, {n: 18, name: "الكهف", f: "018"},
+            {n: 19, name: "مريم", f: "019"}, {n: 20, name: "طه", f: "020"}, {n: 21, name: "الأنبياء", f: "021"},
+            {n: 22, name: "الحج", f: "022"}, {n: 23, name: "المؤمنون", f: "023"}, {n: 24, name: "النور", f: "024"},
+            {n: 25, name: "الفرقان", f: "025"}, {n: 26, name: "الشعراء", f: "026"}, {n: 27, name: "النمل", f: "027"},
+            {n: 28, name: "القصص", f: "028"}, {n: 29, name: "العنكبوت", f: "029"}, {n: 30, name: "الروم", f: "030"},
+            {n: 31, name: "لقمان", f: "031"}, {n: 32, name: "السجدة", f: "032"}, {n: 33, name: "الأحزاب", f: "033"},
+            {n: 34, name: "سبأ", f: "034"}, {n: 35, name: "فاطر", f: "035"}, {n: 36, name: "يس", f: "036"},
+            {n: 37, name: "الصافات", f: "037"}, {n: 38, name: "ص", f: "038"}, {n: 39, name: "الزمر", f: "039"},
+            {n: 40, name: "غافر", f: "040"}, {n: 41, name: "فصلت", f: "041"}, {n: 42, name: "الشورى", f: "042"},
+            {n: 43, name: "الزخرف", f: "043"}, {n: 44, name: "الدخان", f: "044"}, {n: 45, name: "الجاثية", f: "045"},
+            {n: 46, name: "الأحقاف", f: "046"}, {n: 47, name: "محمد", f: "047"}, {n: 48, name: "الفتح", f: "048"},
+            {n: 49, name: "الحجرات", f: "049"}, {n: 50, name: "ق", f: "050"}, {n: 51, name: "الذاريات", f: "051"},
+            {n: 52, name: "الطور", f: "052"}, {n: 53, name: "النجم", f: "053"}, {n: 54, name: "القمر", f: "054"},
+            {n: 55, name: "الرحمن", f: "055"}, {n: 56, name: "الواقعة", f: "056"}, {n: 57, name: "الحديد", f: "057"},
+            {n: 58, name: "المجادلة", f: "058"}, {n: 59, name: "الحشر", f: "059"}, {n: 60, name: "الممتحنة", f: "060"},
+            {n: 61, name: "الصف", f: "061"}, {n: 62, name: "الجمعة", f: "062"}, {n: 63, name: "المنافقون", f: "063"},
+            {n: 64, name: "التغابن", f: "064"}, {n: 65, name: "الطلاق", f: "065"}, {n: 66, name: "التحريم", f: "066"},
+            {n: 67, name: "الملك", f: "067"}, {n: 68, name: "القلم", f: "068"}, {n: 69, name: "الحاقة", f: "069"},
+            {n: 70, name: "المعارج", f: "070"}, {n: 71, name: "نوح", f: "071"}, {n: 72, name: "الجن", f: "072"},
+            {n: 73, name: "المزمل", f: "073"}, {n: 74, name: "المدثر", f: "074"}, {n: 75, name: "القيامة", f: "075"},
+            {n: 76, name: "الإنسان", f: "076"}, {n: 77, name: "المرسلات", f: "077"}, {n: 78, name: "النبأ", f: "078"},
+            {n: 79, name: "النازعات", f: "079"}, {n: 80, name: "عبس", f: "080"}, {n: 81, name: "التكوير", f: "081"},
+            {n: 82, name: "الانفطار", f: "082"}, {n: 83, name: "المطففين", f: "083"}, {n: 84, name: "الانشقاق", f: "084"},
+            {n: 85, name: "البروج", f: "085"}, {n: 86, name: "الطارق", f: "086"}, {n: 87, name: "الأعلى", f: "087"},
+            {n: 88, name: "الغاشية", f: "088"}, {n: 89, name: "الفجر", f: "089"}, {n: 90, name: "البلد", f: "090"},
+            {n: 91, name: "الشمس", f: "091"}, {n: 92, name: "الليل", f: "092"}, {n: 93, name: "الضحى", f: "093"},
+            {n: 94, name: "الشرح", f: "094"}, {n: 95, name: "التين", f: "095"}, {n: 96, name: "العلق", f: "096"},
+            {n: 97, name: "القدر", f: "097"}, {n: 98, name: "البينة", f: "098"}, {n: 99, name: "الزلزلة", f: "099"},
+            {n: 100, name: "العاديات", f: "100"}, {n: 101, name: "القارعة", f: "101"}, {n: 102, name: "التكاثر", f: "102"},
+            {n: 103, name: "العصر", f: "103"}, {n: 104, name: "الهمزة", f: "104"}, {n: 105, name: "الفيل", f: "105"},
+            {n: 106, name: "قريش", f: "106"}, {n: 107, name: "الماعون", f: "107"}, {n: 108, name: "الكوثر", f: "108"},
+            {n: 109, name: "الكافرون", f: "109"}, {n: 110, name: "النصر", f: "110"}, {n: 111, name: "المسد", f: "111"},
+            {n: 112, name: "الإخلاص", f: "112"}, {n: 113, name: "الفلق", f: "113"}, {n: 114, name: "الناس", f: "114"}
+        ];
+
+        function openQuran() {
+            document.getElementById('qModal').classList.remove('hidden');
+            const list = document.getElementById('surahsList');
+            if(list.children.length === 0) {
+                surahs.forEach(s => {
+                    const div = document.createElement('div');
+                    div.className = "p-2 bg-black/40 hover:bg-amber-500/10 border border-gray-800 rounded-lg flex justify-between items-center cursor-pointer";
+                    div.innerHTML = `<span class="text-sm font-bold">سورة ${s.name}</span><span class="text-xs text-amber-400">${s.n}</span>`;
+                    div.onclick = () => {
+                        document.getElementById('curSurah').innerText = `سورة ${s.name}`;
+                        const audio = document.getElementById('qAudio');
+                        audio.src = `https://server8.mp3quran.net/afs/${s.f}.mp3`;
+                        audio.play();
+                    };
+                    list.appendChild(div);
+                });
+            }
+        }
+        function closeQuran() {
+            document.getElementById('qModal').classList.add('hidden');
+            document.getElementById('qAudio').pause();
+        }
+        function order(service, price) {
+            window.open(`https://wa.me/963954561671?text=${encodeURIComponent('مرحباً، أود طلب خدمة: ' + service + ' بسعر ' + price)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
