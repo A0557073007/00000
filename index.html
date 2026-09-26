@@ -13,9 +13,42 @@
         .gold-text { background: linear-gradient(135deg, #FFF099 0%, #F1C40F 50%, #D4AC0D 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .glass-card { background: rgba(18, 18, 20, 0.9); border: 1px solid rgba(212, 172, 13, 0.3); border-radius: 16px; padding: 14px; transition: 0.3s; cursor: pointer; }
         .glass-card:hover { border-color: #f1c40f; transform: translateY(-2px); }
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(212,172,13,0.4); border-radius: 10px; }
     </style>
 </head>
-<body class="p-2 sm:p-4">
+<body class="p-2 sm:p-4 relative">
+
+    <!-- زر الواتساب العائم على الجنب -->
+    <a href="https://wa.me/966557073007" target="_blank" class="fixed bottom-6 left-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-emerald-400" title="تواصل عبر الواتساب">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- زر فتح شات المحادثة الفورية بالموقع -->
+    <button onclick="toggleChat()" class="fixed bottom-24 left-6 z-50 bg-amber-500 hover:bg-amber-400 text-gray-950 w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 font-bold border-2 border-amber-300" title="محادثة فورية">
+        <i class="fa-solid fa-comments text-xl"></i>
+    </button>
+
+    <!-- نافذة الشات الفوري داخل الموقع -->
+    <div id="chatBox" class="fixed bottom-40 left-6 z-50 w-80 bg-[#121216] border border-amber-500/50 rounded-2xl shadow-2xl hidden flex-col overflow-hidden max-h-[400px]">
+        <div class="bg-amber-500/10 border-b border-amber-500/20 p-3 flex justify-between items-center">
+            <span class="text-amber-400 font-bold text-xs flex items-center gap-1.5"><i class="fa-solid fa-headset"></i> الدعم الفوري - Almoghani</span>
+            <button onclick="toggleChat()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chatMessages" class="p-3 overflow-y-auto flex-1 space-y-2 text-xs h-60">
+            <div class="bg-black/40 p-2.5 rounded-xl border border-amber-500/20 text-gray-300">
+                أهلاً بك في منصة المغني الرقمية. كيف يمكننا خدمتك اليوم؟
+            </div>
+        </div>
+        <div class="p-2 bg-black/60 border-t border-amber-500/20 flex gap-1.5">
+            <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." class="flex-1 bg-black/80 border border-amber-500/30 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+            <button onclick="sendMessage()" class="bg-amber-500 hover:bg-amber-400 text-gray-950 px-3 py-1.5 rounded-xl font-bold text-xs"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- الواجهة الرئيسية -->
     <div class="w-full max-w-[420px] bg-[#0d0d10] border border-amber-500/30 rounded-3xl p-5 shadow-2xl flex flex-col justify-between min-h-[850px]">
         <div class="text-center pt-2">
             <div class="w-12 h-12 mx-auto mb-2 text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/30 flex items-center justify-center">
@@ -27,7 +60,6 @@
         </div>
 
         <div class="grid grid-cols-2 gap-3 my-3">
-            <!-- القرآن الكريم -->
             <div onclick="openModal('qModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">القرآن الكريم</span>
@@ -36,7 +68,6 @@
                 <i class="fa-solid fa-book-quran text-amber-400 text-xl"></i>
             </div>
 
-            <!-- الأحاديث الشريفة -->
             <div onclick="openModal('hModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">الأحاديث الشريفة</span>
@@ -45,7 +76,6 @@
                 <i class="fa-solid fa-feather-pointed text-amber-400 text-xl"></i>
             </div>
 
-            <!-- سيرة النبي وغزواته -->
             <div onclick="openModal('prophetModal')" class="glass-card flex items-center justify-between col-span-2 border-amber-400/50 bg-amber-500/5">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">سيرة النبي صلى الله عليه وسلم وغزواته</span>
@@ -54,7 +84,6 @@
                 <i class="fa-solid fa-mosque text-amber-400 text-2xl"></i>
             </div>
 
-            <!-- سير الصحابة -->
             <div onclick="openModal('sahabaModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">سير الصحابة</span>
@@ -63,7 +92,6 @@
                 <i class="fa-solid fa-users text-amber-400 text-xl"></i>
             </div>
 
-            <!-- أمهات المؤمنين -->
             <div onclick="openModal('mothersModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">أمهات المؤمنين</span>
@@ -72,7 +100,6 @@
                 <i class="fa-solid fa-heart text-amber-400 text-xl"></i>
             </div>
 
-            <!-- أبواب الجنة -->
             <div onclick="openModal('gatesModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">أبواب الجنة</span>
@@ -81,7 +108,6 @@
                 <i class="fa-solid fa-door-open text-amber-400 text-xl"></i>
             </div>
 
-            <!-- ديــن ودنيا -->
             <div onclick="openModal('deenDunyaModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">ديــن ودنيا</span>
@@ -90,16 +116,14 @@
                 <i class="fa-solid fa-scale-balanced text-amber-400 text-xl"></i>
             </div>
 
-            <!-- فتح مكة -->
             <div onclick="openModal('makkahModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">فتح مكة</span>
-                    <span class="text-[10px] text-gray-400">قصة الفتح العظيم والدرس المستفاد</span>
+                    <span class="text-[10px] text-gray-400">قصة الفتح العظيم والدروس المستفاد</span>
                 </div>
                 <i class="fa-solid fa-kaaba text-amber-400 text-xl"></i>
             </div>
 
-            <!-- أجور عظيمة من أذكار يسيرة -->
             <div onclick="openModal('adhkarModal')" class="glass-card flex items-center justify-between">
                 <div class="text-right">
                     <span class="text-amber-400 font-bold text-sm block">أجور عظيمة من أذكار يسيرة</span>
@@ -110,9 +134,9 @@
         </div>
 
         <div class="space-y-2 mt-2">
-            <a href="https://wa.me/963954561671" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition text-sm">
+            <a href="https://wa.me/966557073007" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition text-sm">
                 <i class="fa-brands fa-whatsapp text-lg"></i>
-                <span>تواصل عبر الواتساب: 963954561671+</span>
+                <span>تواصل عبر الواتساب: 966557073007+</span>
             </a>
         </div>
 
@@ -148,7 +172,7 @@
                 <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
                     <i class="fa-solid fa-house"></i> الرئيسية
                 </button>
-                <h3 class="text-amber-400 font-bold text-sm">الأحاديث النبوية</h3>
+                <h3 class="text-amber-400 font-bold text-sm">الأحاديث النبوية الشريفة</h3>
                 <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="mb-3">
@@ -158,7 +182,7 @@
         </div>
     </div>
 
-    <!-- نافذة سيرة النبي وغزواته -->
+    <!-- نافذة سيرة النبي وغزواته (معلومات مكثفة) -->
     <div id="prophetModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
@@ -170,31 +194,32 @@
             </div>
             <div class="overflow-y-auto space-y-3 flex-1 text-right pr-1 text-xs text-gray-300 leading-relaxed">
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">مولده ونشأته ﷺ</h4>
-                    <p>ولد النبي محمد صلى الله عليه وسلم في مكة عام الفيل (12 ربيع الأول)، توفي والده عبد الله قبل مولده، وتوفيت أمه آمنة وهو صغير، فكفله جده عبد المطلب ثم عمه أبو طالب.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">مولده ونشأته الطاهرة ﷺ</h4>
+                    <p>ولد خاتم الانبياء والمرسلين محمد صلى الله عليه وسلم في مكة المكرمة يوم الإثنين الثاني عشر من ربيع الأول عام الفيل. توفي والده عبدالله قبل ولادته، وتوفيت أمه آمنة بنت وهب وهو في السادسة من عمره، فكفله جده عبدالمطلب ثم عمه أبو طالب، ونشأ موصوفاً بالصدق والأمين.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">البعثة النبوية والعهد المكي</h4>
-                    <p>نزول الوحي عليه وعمره أربعون سنة في غار حراء بآيات "اقْرَأْ بِاسْمِ رَبِّكَ"، وبقي يدعو للإسلام سراً ثم جهراً في مكة ١٣ عاماً، لاقى فيها المسلمون أشد أنواع الأذى والصبر.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">البعثة النبوية والعهد المكي (13 سنة)</h4>
+                    <p>أنزل الله عليه الوحي وهو ابن أربعين سنة في غار حراء بآيات سورة العلق. ظل يدعو للإسلام سراً ثلاث سنوات ثم جهراً، وتحمل هو وأصحابه الكرام ألوان الإذى والاضطهاد من قريش بصبر وثبات عظيمين، إلى أن أذن الله بالهجرة.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">الهجرة النبوية والعهد المدني</h4>
-                    <p>هاجر النبي صلى الله عليه وسلم إلى المدينة المنورة (يثرب) وأسس الدولة الإسلامية، وآخى بين المهاجرين والأنصار، وشرعت الأحكام وبدأت مرحلة الدفاع عن الدين.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">الهجرة النبوية وبناء الدولة في المدينة</h4>
+                    <p>هاجر النبي ﷺ إلى يثرب (المدينة المنورة) فسميت بالمنورة واستقبلته الأنصار بحفاوة بالغة. أسس المسجد النبوي، وآخى بين المهاجرين والأنصار، وكتب وثيقة المدينة التي وضعت أسساً فريدة للتعايش السلمي وحماية المجتمع.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">أبرز الغزوات الإسلامية</h4>
-                    <ul class="list-disc pr-4 space-y-1">
-                        <li><b>غزوة بدر الكبرى (2 هـ):</b> النصر العظيم للمسلمين رغم قلة عددهم.</li>
-                        <li><b>غزوة أحد (3 هـ):</b> ابتلاء واختبار لصبر المؤمنين.</li>
-                        <li><b>غزوة الخندق (الأحزاب - 5 هـ):</b> حفر الخندق وحماية المدينة المنورة.</li>
-                        <li><b>صلح الحديبية وفتح مكة (8 هـ):</b> دخول الناس في دين الله أفواجاً وتطهير الكعبة.</li>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">أبرز الغزوات والسرايا</h4>
+                    <ul class="list-disc pr-4 space-y-1 mt-1">
+                        <li><b>غزوة بدر الكبرى (2 هـ):</b> النصر التاريخي والفرق بين الحق والباطل.</li>
+                        <li><b>غزوة أحد (3 هـ):</b> مدرسة في التربية الإلهية وأهمية طاعة القائد.</li>
+                        <li><b>غزوة الخندق الأحزاب (5 هـ):</b> حفر الخندق وحماية المدينة بفضل الله.</li>
+                        <li><b>صلح الحديبية (6 هـ):</b> الفتح المبين والهدنة التي مهدت لانتشار الإسلام.</li>
+                        <li><b>فتح مكة (8 هـ):</b> العفو العام ودخول الناس في دين الله أفواجاً.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة سير الصحابة (صفحات متعددة) -->
+    <!-- نافذة سير الصحابة -->
     <div id="sahabaModal" class="fixed inset-0 bg-black/90 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="w-full max-w-[480px] bg-[#121216] border border-amber-500/40 rounded-t-3xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-3">
@@ -221,29 +246,33 @@
                 <button onclick="closeAllModals()" class="text-amber-400 hover:text-amber-300 text-xs font-bold flex items-center gap-1.5 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 cursor-pointer">
                     <i class="fa-solid fa-house"></i> الرئيسية
                 </button>
-                <h3 class="text-amber-400 font-bold text-sm">امهات المؤمنين رضي الله عنهن</h3>
+                <h3 class="text-amber-400 font-bold text-sm">أمهات المؤمنين رضي الله عنهن</h3>
                 <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="overflow-y-auto space-y-2.5 flex-1 text-right pr-1 text-xs text-gray-300">
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
                     <h4 class="text-amber-300 font-bold">خديجة بنت خويلد رضي الله عنها</h4>
-                    <p class="mt-1">أول زوجات النبي ﷺ، وزير صدق، ساندته بمالها ونفسها وبشرها النبي بيت في الجنة من قصب.</p>
+                    <p class="mt-1">أول زوجات النبي ﷺ، ساندته بمالها ونفسها، وبشّرها النبي ببيت في الجنة من قصب لا صخب فيه ولا نصب.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
                     <h4 class="text-amber-300 font-bold">عائشة بنت أبي بكر الصديق رضي الله عنها</h4>
-                    <p class="mt-1">أحب أزواج النبي ﷺ إليه، عالمة الأمة ومحدثتها، برأها الله تعالى في سورة النور.</p>
+                    <p class="mt-1">أحب أزواج النبي ﷺ إليه، فقيهة الأمة ومحدثتها، برّأها الله من فوق سبع سماوات في سورة النور.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
                     <h4 class="text-amber-300 font-bold">حفصة بنت عمر بن الخطاب رضي الله عنها</h4>
-                    <p class="mt-1">صوامة قوامة، حفظت المصحف الشريف الذي جُمع في عهد أبي بكر وعمر رضي الله عنهما.</p>
+                    <p class="mt-1">الصوامة القوامة، وحافظة الصحيفة الأولى التي جُمع فيها القرآن الكريم.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
                     <h4 class="text-amber-300 font-bold">أم سلمة هند بنت أبي أمية رضي الله عنها</h4>
-                    <p class="mt-1">ذات رأي سديد وحكمة بالغة، وكان لها دور عظيم في صلح الحديبية.</p>
+                    <p class="mt-1">صاحبة الرأي السديد والمشورة العظيمة يوم صلح الحديبية، وكانت بالغة الراجحة في عقلها.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
                     <h4 class="text-amber-300 font-bold">زينب بنت جحش رضي الله عنها</h4>
-                    <p class="mt-1">عُرفت بكثرة الصدقة والعمل الصالح لطرد المساكين، ونزل في زواجها آيات من القرآن.</p>
+                    <p class="mt-1">عُرفت بطول اليد في الصدقة وإغاثة المساكين، ونزل في شأنها آيات محكمات من كتاب الله.</p>
+                </div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
+                    <h4 class="text-amber-300 font-bold">جويرية بنت الحارث رضي الله عنها</h4>
+                    <p class="mt-1">كانت سبباً في عتق مئات الأسرى من بني المصطلق لأنها كانت أعظم نساء قومها بركة على قومها.</p>
                 </div>
             </div>
         </div>
@@ -260,15 +289,15 @@
                 <button onclick="closeAllModals()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="overflow-y-auto space-y-2.5 flex-1 text-right pr-1 text-xs text-gray-300">
-                <p class="text-amber-300 font-semibold mb-2">للجنة ثمانية أبواب يدخل منها المؤمنون حسب أعمالهم الصالحة:</p>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">1. باب الصلاة:</b> يُدخل منه أهل المحافظة على الصلاة.</div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">2. باب الجهاد:</b> يُدخل منه المجاهدون في سبيل الله.</div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">3. باب الصيام (الريان):</b> لا يدخل منه أحد غير الصائمين.</div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">4. باب الصدقة:</b> يُدخل منه أهل البذل والإنفاق والصدقات.</div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">5. باب التوبة:</b> لمن تاب إلى الله نصوحاً.</div>
+                <p class="text-amber-300 font-semibold mb-2">للجنة ثمانية أبواب واسعة، ينادي المنادي كل أهل عمل من الباب المخصص لهم:</p>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">1. باب الصلاة:</b> يُدعَى إليه أهل المحافظة على الصلوات في أوقاتها.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">2. باب الجهاد:</b> يُدعَى إليه المجاهدون في سبيل إعلاء كلمة الله.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">3. باب الصيام (الريان):</b> مخصص للصائمين المكثرين من صيام التطوع.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">4. باب الصدقة:</b> يُدعَى إليه أهل البذل والإنفاق والمحسنين.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">5. باب التوبة:</b> لكل من تاب إلى الله ورجع إليه بقلب صادق.</div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">6. باب الكاظمين الغيظ والعافين عن الناس.</b></div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">7. باب الأيمن:</b> باب شفاعة ودخول بلا حساب.</div>
-                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">8. باب الذكر والعلم.</b></div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">7. باب الأيمن:</b> باب الشفاعة ودخول الجنة بلا حساب ولا عذاب.</div>
+                <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl"><b class="text-amber-400">8. باب العلم والذكر.</b></div>
             </div>
         </div>
     </div>
@@ -285,16 +314,16 @@
             </div>
             <div class="overflow-y-auto space-y-3 flex-1 text-right pr-1 text-xs text-gray-300 leading-relaxed">
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">المعادلة النبوية الصحيحة</h4>
-                    <p>قال تعالى: <span class="text-amber-400">"وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا"</span>. الإسلام لا يطلب منا رهبانية تترك الدنيا، بل إعمار الدنيا بطاعة الله.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">المعادلة القرآنية المتوازنة</h4>
+                    <p>قال تعالى: <span class="text-amber-400">"وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا"</span>. الإسلام لا يدعو إلى الانقطاع التام عن الحياة، بل يربط السعي الدنيوي بالنية الصالحة ليصبح عبادة.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">العمل عبادة</h4>
-                    <p>السعي على الرزق، إتقان العمل، وبر الوالدين، وصلة الرحم كلها أعمال دنيوية تنقلب بنيّة الصدق إلى عبادات عظيمة تثقل الميزان يوم القيامة.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">إعمار الأرض بالقيم</h4>
+                    <p>العمل الشريف، التجارة النافعة، إتقان الصنعة، وبر الوالدين وصلة الأرحام؛ كلها أعمال دنيوية تتحول بالنية الخالصة إلى أجور عظيمة تثقل ميزان العبد يوم القيامة.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">التوازن في الحياة</h4>
-                    <p>أعط كل ذي حق حقه؛ لربك عليك حق، ولنفسك عليك حق، ولأهلك عليك حق، فاجعل بوصلتك دائماً متجهة نحو رضا الله في كل حركة وسكون.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">إدارة الوقت والجهد</h4>
+                    <p>التوازن الحقيقي هو أن تعطي لربك حق العبادة، ولنفسك حقها من الراحة والصحة، ولاهلك وعملك حقهم من الرعاية والإتقان، لتفوز بالحسنيين في الدنيا والآخرة.</p>
                 </div>
             </div>
         </div>
@@ -312,16 +341,16 @@
             </div>
             <div class="overflow-y-auto space-y-3 flex-1 text-right pr-1 text-xs text-gray-300 leading-relaxed">
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">عام الفتح (8 هجرياً)</h4>
-                    <p>في شهر رمضان من السنة الثامنة للهجرة، فتح الله على نبيه محمد صلى الله عليه وسلم مكة المكرمة دون قتال كبير، بعد أن نكثت قريش عهد صلح الحديبية.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">الحدث التاريخي العظيم (رمضان 8 هـ)</h4>
+                    <p>يُعد فتح مكة التتويج الأعظم لمسيرة الدعوة الإسلامية. وقع في شهر رمضان المبارك بعد أن نقضت قريش عهد صلح الحديبية، فتوجه النبي ﷺ بجيش عظيم يضم عشرة آلاف مجاهد لتحرير البيت العتيق.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">تطهير الكعبة من الأصنام</h4>
-                    <p>دخل النبي ﷺ مكة متواضعاً شاكراً لله، وتوجه إلى الكعبة المشرفة وحطّم الأصنام حولها وهو يتلو قول الله تعالى: <span class="text-amber-400">"جَاءَ الْحَقُّ وَزَهَقَ الْبَاطِلُ ۚ إِنَّ الْبَاطِلَ كَانَ زَهُوقًا"</span>.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">دخول مكة وتطهير الكعبة</h4>
+                    <p>دخل النبي ﷺ مكة متواضعاً خاشعاً ناظراً إلى أسفل طأطأةً شكراً لله، حتى إن رِكبه لتمس كرب السرج من شدة التواضع. وتوجه فوراً إلى الكعبة فحطّم الأصنام حولها بوعصاه وهو يتلو قوله تعالى: <span class="text-amber-400">"جَاءَ الْحَقُّ وَزَهَقَ الْبَاطِلُ ۚ إِنَّ الْبَاطِلَ كَانَ زَهُوقًا"</span>.</p>
                 </div>
                 <div class="p-3 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold text-sm mb-1">العفو عند المقدرة</h4>
-                    <p>وقف النبي ﷺ يخاطب أهل مكة الذين أذوه وأخرجوه قائلاً: <span class="text-amber-400">"ما تظنون أني فاعل بكم؟"</span> قالوا: أخ كريم وابن أخ كريم. فقال: <span class="text-amber-400">"اذهبوا فأنتم الطلقاء"</span>، فضرب أعظم مثال في التسامح والعفو.</p>
+                    <h4 class="text-amber-300 font-bold text-sm mb-1">العفو عند المقدرة «اذْهَبُوا فَأَنْتُمُ الطُّلَقَاءُ»</h4>
+                    <p>وقف النبي ﷺ على باب الكعبة يخاطب قريشاً الذين أذوه وأخرجوه وحاربوه قائلاً: <span class="text-amber-400">"يا معشر قريش، ما تظنون أني فاعل بكم؟"</span> قالوا: أخ كريم وابن أخ كريم. فقال كلمته الخالدة: <span class="text-amber-400">"اذهبوا فأنتم الطلقاء"</span>، فضرب أروع مثال في التسامح والرحمة البشرية.</p>
                 </div>
             </div>
         </div>
@@ -339,24 +368,24 @@
             </div>
             <div class="overflow-y-auto space-y-2.5 flex-1 text-right pr-1 text-xs text-gray-300">
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold">سبحان الله وبحمده (100 مرة)</h4>
-                    <p class="mt-1">"حُطَّت خطاياه وإن كانت مثل زبد البحر" (رواه البخاري ومسلم).</p>
+                    <h4 class="text-amber-300 font-bold">كلمتان خفيفتان على اللسان</h4>
+                    <p class="mt-1"><span class="text-amber-400 font-semibold">"سُبحان الله وبحمده، سُبحان الله العظيم"</span>. قال النبي ﷺ: «حبيبتان إلى الرحمن، ثقيلتان في الميزان» (متفق عليه).</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold">لا حول ولا قوة إلا بالله</h4>
-                    <p class="mt-1">"كنز من كنز الجنة" (متفق عليه).</p>
+                    <h4 class="text-amber-300 font-bold">كنز من كنوز الجنة</h4>
+                    <p class="mt-1"><span class="text-amber-400 font-semibold">"لا حول ولا قوة إلا بالله"</span>. دواء لتفريغ الهموم وتحقيق المعاونة الإلهية.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold">سورة الإخلاص (10 مرات)</h4>
-                    <p class="mt-1">"بنى الله له بيتاً في الجنة" (صحيح الجامع).</p>
+                    <h4 class="text-amber-300 font-bold">غرس نخلة في الجنة</h4>
+                    <p class="mt-1">من قال: <span class="text-amber-400 font-semibold">"سبحان الله العظيم وبحمده"</span> غُرست له بها نخلة في الجنة (رواه الترمذي).</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold">سُبحان الله وبحمده، سُبحان الله العظيم</h4>
-                    <p class="mt-1">"كلمتان ثقيلتان في الميزان، خفيفتان على اللسان، حبيبتان إلى الرحمن" (متفق عليه).</p>
+                    <h4 class="text-amber-300 font-bold">بناء بيت في الجنة</h4>
+                    <p class="mt-1">من قرأ سورة الإخلاص (<span class="text-amber-400 font-semibold">قل هو الله أحد</span>) عشر مرات بنى الله له بيتاً في الجنة.</p>
                 </div>
                 <div class="p-2.5 bg-black/40 border border-amber-500/20 rounded-xl">
-                    <h4 class="text-amber-300 font-bold">من قال: سبحان الله العظيم وبحمده</h4>
-                    <p class="mt-1">"غُرست له نخلة في الجنة" (رواه الترمذي).</p>
+                    <h4 class="text-amber-300 font-bold">مضاعفة الصلوات عشراً</h4>
+                    <p class="mt-1">قال النبي ﷺ: «من صلى عليّ صلاة صلى الله عليه بها عشراً» (رواه مسلم).</p>
                 </div>
             </div>
         </div>
@@ -405,23 +434,23 @@
         ];
 
         const hadiths = [
-            {t: "إنما الأعمال بالنيات", c: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى...", r: "رواه البخاري ومسلم"},
-            {t: "الدين النصيحة", c: "الدين النصيحة. قلنا: لمن يا رسول الله؟ قال: لله ولكتابه ولرسوله...", r: "رواه مسلم"},
-            {t: "من سلك طريقاً يبتغي فيه علماً", c: "سهل الله له طريقاً إلى الجنة...", r: "رواه أبو داود والترمذي"},
-            {t: "لا يؤمن أحدكم حتى يحب لأخيه", c: "ما يحب لنفسه.", r: "رواه البخاري ومسلم"}
+            {t: "إنما الأعمال بالنيات", c: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله...", r: "رواه البخاري ومسلم"},
+            {t: "الدين النصيحة", c: "قلنا: لمن؟ قال: لله ولكتابه ولرسوله ولأئمة المسلمين وعلّتهم.", r: "رواه مسلم"},
+            {t: "من سلك طريقاً يلتمس فيه علماً", c: "سهل الله له به طريقاً إلى الجنة.", r: "رواه أبو داود والترمذي"},
+            {t: "لا يؤمن أحدكم حتى يحب لأخيه", c: "ما يحب لنفسه من الخير.", r: "رواه البخاري ومسلم"}
         ];
 
         const sahabaList = [
-            {name: "أبو بكر الصديق رضي الله عنه", info: "أول الخلفاء الراشدين، رفيق النبي ﷺ في الهجرة، وثاني اثني في الغار، وأول من أسلم من الرجال الأحرار."},
-            {name: "عمر بن الخطاب رضي الله عنه", info: "أمير المؤمنين الفاروق، ثاني الخلفاء الراشدين، أعز الله به الإسلام، وعُعدت فتوحاته الكبرى علامة فارقة في التاريخ."},
-            {name: "عثمان بن عفان رضي الله عنه", info: "ذو النورين، ثالث الخلفاء الراشدين، زوج رقية ثم أم كلثوم بنتي النبي ﷺ، وجهّز جيش العسرة وجمع القرآن."},
-            {name: "علي بن أبي طالب رضي الله عنه", info: "ابن عم النبي ﷺ وزوج فاطمة الزهراء، رابع الخلفاء الراشدين، وباب مدينة العلم وشجاع الفرسان."},
-            {name: "الزبير بن العوام رضي الله عنه", info: "حواري رسول الله ﷺ، وأول من سل سيفاً في سبيل الله، أحد العشرة المبشرين بالجنة."},
-            {name: "طلحة بن عبيد الله رضي الله عنه", info: "طلحة الخير، وقاه النبي ﷺ بيده يوم أحد حتى شلت يده، من العشرة المبشرين بالجنة."},
-            {name: "عبد الرحمن بن عوف رضي الله عنه", info: "من تجار الصحابة الأجلاء، أنفق أموالاً طائلة في سبيل الله وبُشر بالجنة."},
+            {name: "أبو بكر الصديق رضي الله عنه", info: "أول الخلفاء الراشدين، صاحب النبي ﷺ في الغار والهجرة، وثاني اثنين إذ هما في الغار، وأفضل هذه الأمة بعد نبيهها."},
+            {name: "عمر بن الخطاب رضي الله عنه", info: "أمير المؤمنين الفاروق، ثاني الخلفاء الراشدين، أعز الله به الإسلام، وعُرفت أيامه بالعدل والفتحات الواسعة."},
+            {name: "عثمان بن عفان رضي الله عنه", info: "ذو النورين، ثالث الخلفاء الراشدين، زوج ابنتي النبي ﷺ، جهّز جيش العسرة وجمع القرآن في مصحف واحد."},
+            {name: "علي بن أبي طالب رضي الله عنه", info: "ابن عم رسول الله ﷺ وزوج فاطمة الزهراء، رابع الخلفاء الراشدين، وباب مدينة العلم وشجاع الفرسان."},
+            {name: "الزبير بن العوام رضي الله عنه", info: "حواري رسول الله ﷺ وأول من سل سيفاً في سبيل الله، أحد العشرة المبشرين بالجنة."},
+            {name: "طلحة بن عبيد الله رضي الله عنه", info: "طلحة الخير، وقاه النبي ﷺ بيده يوم أحد حتى شلت يده دفاعاً عنه."},
+            {name: "عبد الرحمن بن عوف رضي الله عنه", info: "من تجار الصحابة الأجلاء، ضرب أروع الأمثلة في البذل والإنفاق وسعة الكرم."},
             {name: "سعد بن أبي وقاص رضي الله عنه", info: "خال النبي ﷺ وأول من رمى بسهم في سبيل الله، وقائد معركة القادسية الفاصلة."},
-            {name: "سعيد بن زيد رضي الله عنه", info: "من السابقين الأولين إلى الإسلام، وزوج فاطمة بنت الخطاب، ومبشر بالجنة."},
-            {name: "أبو عبيدة بن الجراح رضي الله عنه", info: "أمين هذه الأمة، وقائد الجيوش الإسلامية في الشام، ومن العشرة المبشرين بالجنة."}
+            {name: "سعيد بن زيد رضي الله عنه", info: "من السابقين الأولين إلى الإسلام، وممن شهد لهم النبي بالجنة."},
+            {name: "أبو عبيدة بن الجراح رضي الله عنه", info: "أمين هذه الأمة، وقائد جيوش المسلمين بالشام، والمبشر بالجنة."}
         ];
 
         function openModal(modalId) {
@@ -452,7 +481,9 @@
         }
 
         function closeAllModals() {
-            document.querySelectorAll('.fixed').forEach(m => m.classList.add('hidden'));
+            document.querySelectorAll('.fixed').forEach(m => {
+                if(m.id !== 'chatBox') m.classList.add('hidden');
+            });
             const audio = document.getElementById('qAudio');
             if(audio) audio.pause();
         }
@@ -502,7 +533,7 @@
             contentBox.innerHTML = `
                 <h4 class="text-amber-400 font-black text-base mb-2 pb-2 border-b border-amber-500/30">${sahabi.name}</h4>
                 <p class="text-sm leading-loose">${sahabi.info}</p>
-                <div class="mt-4 pt-2 border-t border-gray-800 text-[11px] text-amber-300/80">
+                <div class="mt-4 pt-2 border-t border-gray-800 text-[11px] text-amber-300/85">
                     <i class="fa-solid fa-star"></i> صفحة خاصة ضمن سير الصحابة الكرام - Almoghani.net
                 </div>
             `;
@@ -510,6 +541,39 @@
 
         function backToSahabaList() {
             renderSahabaIndex();
+        }
+
+        // الوظائف الخاصة بالشات الفوري داخل الموقع
+        function toggleChat() {
+            const box = document.getElementById('chatBox');
+            box.classList.toggle('hidden');
+            box.classList.toggle('flex');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const msgContainer = document.getElementById('chatMessages');
+            
+            // رسالة المستخدم
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-amber-500/20 p-2.5 rounded-xl border border-amber-500/30 text-right text-amber-200 ml-6";
+            userMsg.innerText = text;
+            msgContainer.appendChild(userMsg);
+            
+            input.value = '';
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+
+            // الرد التلقائي من النظام
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = "bg-black/50 p-2.5 rounded-xl border border-amber-500/20 text-right text-gray-300 mr-6";
+                botMsg.innerText = "شكراً لتواصلك معنا عبر موقع المغني (Almoghani.net). تم استلام رسالتك بنجاح وسنسعد بالرد عليك قريباً، أو يمكنك مراسلتنا مباشرة عبر زر الواتساب العائم في الشاشة.";
+                msgContainer.appendChild(botMsg);
+                msgContainer.scrollTop = msgContainer.scrollHeight;
+            }, 1000);
         }
     </script>
 </body>
